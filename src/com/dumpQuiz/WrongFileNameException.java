@@ -10,4 +10,9 @@ public class WrongFileNameException extends Throwable {
     public WrongFileNameException(String filename) {
         message = "No file with the name " + filename + " found";
     }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
 }

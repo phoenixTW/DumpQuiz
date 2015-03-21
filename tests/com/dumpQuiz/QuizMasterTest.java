@@ -21,6 +21,16 @@ public class QuizMasterTest extends TestCase {
         equalsFile("QuestionsOutput", qm.getSet());
     }
 
+    public void testFileReaderShouldThrowErrorForInvalidFileName () throws IOException{
+        try{
+            QuizMaster qMaster = new QuizMaster("InvalidFile");
+            qMaster.readQuestions();
+        } catch (WrongFileNameException e) {
+            String message = "No file with the name data/InvalidFile found";
+            assertEquals(message, e.getMessage());
+        }
+    }
+
     protected void equalsFile(String fileName, String actualValue) throws IOException{
         BufferedReader file = new BufferedReader (new FileReader (GOLD_PATH + '/' + fileName));
         BufferedReader actualStream = new BufferedReader (new StringReader (actualValue));

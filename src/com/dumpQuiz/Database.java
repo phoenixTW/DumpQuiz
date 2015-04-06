@@ -6,12 +6,13 @@ import java.util.Map;
 
 /**
  * Created by Kaustav on 4/7/2015.
+ * Database class as QUestionBank Database
  */
-public class QuestionBank {
+public class Database {
     private final String filePath;
     private Map<String, String> questionAnswers;
 
-    public QuestionBank(String filePath) {
+    public Database(String filePath) {
         this.filePath = filePath;
         questionAnswers = new HashMap<String, String>();
     }

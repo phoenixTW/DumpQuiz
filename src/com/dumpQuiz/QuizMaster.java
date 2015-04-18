@@ -21,6 +21,6 @@ public class QuizMaster {
 
     public void readQuestions() throws IOException, WrongFileNameException {
 
-        questionSet = QMFileReader.read(filename);
+        questionSet = new QMFileReader(filename).read();
     }
 }

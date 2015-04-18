@@ -8,7 +8,14 @@ import java.io.*;
  */
 public class QMFileReader {
 
-    public static String read(String filename) throws IOException, WrongFileNameException {
+    private String filename;
+
+    public QMFileReader(String filename) {
+
+        this.filename = filename;
+    }
+
+    public String read() throws IOException, WrongFileNameException {
         FileReader fr;
         File thisFile = new File(filename);
 
@@ -18,10 +25,15 @@ public class QMFileReader {
             throw new WrongFileNameException(filename);
         }
 
+        char[] cbuf = writeOnBuffer(fr, thisFile);
+
+        return new String (cbuf);
+    }
+
+    private char[] writeOnBuffer(FileReader fr, File thisFile) throws IOException {
         int length = (int)thisFile.length();
         char cbuf[] = new char[length];
         new BufferedReader(fr).read(cbuf, 0, length);
-
-        return new String (cbuf);
+        return cbuf;
     }
 }

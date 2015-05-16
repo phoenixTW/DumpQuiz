@@ -1,4 +1,4 @@
-package com.dumpQuiz;
+package com.dumpQuiz.exceptions;
 
 /**
  * Created by kaustavc on 3/20/2015.

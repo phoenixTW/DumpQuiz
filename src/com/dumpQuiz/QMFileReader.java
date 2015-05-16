@@ -1,6 +1,12 @@
 package com.dumpQuiz;
 
+import com.dumpQuiz.exceptions.WrongFileNameException;
+import com.dumpQuiz.exceptions.WrongQuestionFormatException;
+
 import java.io.*;
+
+import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Paths.get;
 
 /**
  * Created by kaustavc on 3/20/2015.
@@ -15,25 +21,27 @@ public class QMFileReader {
         this.filename = filename;
     }
 
-    public String read() throws IOException, WrongFileNameException {
-        FileReader fr;
-        File thisFile = new File(filename);
+    public String read() throws IOException, WrongFileNameException, WrongQuestionFormatException {
+        String data = null;
 
         try {
-            fr = new FileReader(thisFile);
+            data = new String(readAllBytes(get(filename)));
         } catch(FileNotFoundException e) {
             throw new WrongFileNameException(filename);
         }
 
-        char[] cbuf = writeOnBuffer(fr, thisFile);
-
-        return new String (cbuf);
+        return isCorrectFormat(data) ? data : null;
     }
 
-    private char[] writeOnBuffer(FileReader fr, File thisFile) throws IOException {
-        int length = (int)thisFile.length();
-        char cbuf[] = new char[length];
-        new BufferedReader(fr).read(cbuf, 0, length);
-        return cbuf;
+    private boolean isCorrectFormat(String data) throws WrongQuestionFormatException {
+        String[] lines = data.split(System.lineSeparator());
+
+        for (String line : lines) {
+            if (line.split(":").length != 2){
+                throw new WrongQuestionFormatException(filename);
+            }
+        }
+
+        return true;
     }
 }

@@ -1,5 +1,8 @@
 package com.dumpQuiz;
 
+import com.dumpQuiz.exceptions.WrongFileNameException;
+import com.dumpQuiz.exceptions.WrongQuestionFormatException;
+
 import java.io.IOException;
 
 /**
@@ -13,13 +16,14 @@ public class QuizMaster {
     public QuizMaster(String filename) {
 
         this.filename = "data/" + filename;
+        questionSet = null;
     }
 
     public String getSet() {
         return questionSet;
     }
 
-    public void readQuestions() throws IOException, WrongFileNameException {
+    public void readQuestions() throws IOException, WrongFileNameException, WrongQuestionFormatException {
 
         questionSet = new QMFileReader(filename).read();
     }

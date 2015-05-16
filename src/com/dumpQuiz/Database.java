@@ -1,5 +1,8 @@
 package com.dumpQuiz;
 
+import com.dumpQuiz.exceptions.WrongFileNameException;
+import com.dumpQuiz.exceptions.WrongQuestionFormatException;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +27,8 @@ public class Database {
         } catch (WrongFileNameException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (WrongQuestionFormatException e) {
             e.printStackTrace();
         }
     }
